@@ -1,0 +1,3 @@
+Irradiance to frequency converter, 
+1 Hz = 0.001 uW/cm2
+1Mhz = 1000 uW/cm2
