@@ -1,0 +1,145 @@
+#!/bin/sh
+
+
+
+
+
+cheie="5rttnwPJR2TneXp6AOkbhA"
+#
+#
+#
+#
+# Pressure       37279
+# Temp P1        37280
+#
+
+
+#temp_file="/system/temp_log/cosm_temp1_MAIN.json"
+#temp_file="/system/teava_1"
+
+
+#root@raspberrypi:/system/bmp05/aaa# ./palt | grep Pressure | awk '{print $2}'
+#993.5100
+#root@raspberrypi:/system/bmp05/aaa# ./palt | grep Temp | awk '{print $2}'
+#27.2000
+#root@raspberrypi:/system/bmp05/aaa# ./palt | grep analit | awk '{print $2}'
+#analitical
+#root@raspberrypi:/system/bmp05/aaa# ./palt | grep analit | awk '{print $3}'
+#165.6563
+
+# variabila_pres="1"
+ variabila_pres=$(/daisypi/bmp085/pres1)
+ variabila_sht=$(/daisypi/sht11/sht11_move)
+ variabila_sht_sec=$(/daisypi/sht11/sht11_secund)
+# variabila_adc=$(/daisypi/mcp3304/adc_1.py)
+ variab_cpu=$(cat /sys/class/thermal/thermal_zone0/temp)
+# echo " VV $variab_cpu"
+ read_temp=$(echo $variabila_sht | awk '{print $2}')
+ read_humid=$(echo $variabila_sht | awk '{print $3}')
+ read_dew=$(echo $variabila_sht | awk '{print $4}')
+
+ read_temp_sec=$(echo $variabila_sht_sec | awk '{print $2}')
+ read_humid_sec=$(echo $variabila_sht_sec | awk '{print $3}')
+ read_dew_sec=$(echo $variabila_sht_sec | awk '{print $4}')
+
+ cpu_temp=$(echo "scale=2; "$variab_cpu"/1000" | /usr/bin/bc)
+ ilum=$(nice -19 "/daisypi/tsl235r/tsl_read" | awk '{print $4}')
+# ilum=$(echo $ilum | awk '{print $4}')
+# echo "BP  "$variabila_pres
+ presiune=$(echo $variabila_pres | awk '{print $4}')
+ temp_pres=$(echo $variabila_pres | awk '{print $3}')
+# light=$(echo $variabila_adc | awk '{print $3}')
+# monoxide=$(echo $variabila_adc | awk '{print $4}')
+# pressdiff=$(echo $variabila_adc | awk '{print $2}')
+
+# echo "Read temperature is $read_temp."
+# echo "Read humidity is $read_humid."
+# echo "Read CPU temp is $cpu_temp."
+# echo "Illumination is "$ilum
+
+ echo "Read pressure is $presiune."
+ echo "Read temp_pressure is $temp_pres."
+# echo "Read altitude is $altit."
+# echo "Read light is $light."
+# echo "Read monoxide is $monoxide"
+  timestamp=$(date | awk '{print $3 "," $2 "," $6 "," $4 ","}')
+                   
+
+
+if [ -n "$read_temp" ]; then 
+
+echo "$timestamp$read_temp," >> /ram/logs/read_temp.csv
+feed_id=""
+curl 'http://api.sen.se/events/?sense_key='$cheie -X POST -H "Content-type: application/json" -d '[{"feed_id": '$feed_id',"value": '$read_temp'}]'
+fi
+
+if [ -n "$read_humid" ]; then 
+
+echo "$timestamp$read_humid," >> /ram/logs/read_humid.csv
+feed_id=""
+curl 'http://api.sen.se/events/?sense_key='$cheie -X POST -H "Content-type: application/json" -d '[{"feed_id": '$feed_id',"value": '$read_humid'}]'
+fi
+
+if [ -n "$read_dew" ]; then 
+
+echo "$timestamp$read_dew," >> /ram/logs/read_dew.csv
+feed_id=""
+curl 'http://api.sen.se/events/?sense_key='$cheie -X POST -H "Content-type: application/json" -d '[{"feed_id": '$feed_id',"value": '$read_dew'}]'
+fi
+
+
+if [ -n "$cpu_temp" ]; then 
+
+echo "$timestamp$cpu_temp," >> /ram/logs/cpu_temp.csv
+feed_id="37600"
+curl 'http://api.sen.se/events/?sense_key='$cheie -X POST -H "Content-type: application/json" -d '[{"feed_id": '$feed_id',"value": '$cpu_temp'}]'
+fi
+
+if [ -n "$ilum" ]; then 
+
+echo "$timestamp$ilum," >> /ram/logs/ilumination.csv
+feed_id="37594"
+curl 'http://api.sen.se/events/?sense_key='$cheie -X POST -H "Content-type: application/json" -d '[{"feed_id": '$feed_id',"value": '$ilum'}]'
+fi
+
+
+if [ -n "$presiune" ]; then 
+
+echo "$timestamp$presiune," >> /ram/logs/presiune.csv
+feed_id="37592"
+curl 'http://api.sen.se/events/?sense_key='$cheie -X POST -H "Content-type: application/json" -d '[{"feed_id": '$feed_id',"value": '$presiune'}]'
+fi
+
+if [ -n "$temp_pres" ]; then 
+
+echo "$timestamp$temp_pres," >> /ram/logs/ilumination.csv
+feed_id="37593"
+curl 'http://api.sen.se/events/?sense_key='$cheie -X POST -H "Content-type: application/json" -d '[{"feed_id": '$feed_id',"value": '$temp_pres'}]'
+fi
+
+exit 0
+
+if [ -n "$read_temp_sec" ]; then 
+
+echo "$timestamp$read_temp_sec," >> /ram/logs/read_temp_sec.csv
+feed_id="36995"
+curl 'http://api.sen.se/events/?sense_key='$cheie -X POST -H "Content-type: application/json" -d '[{"feed_id": '$feed_id',"value": '$read_temp_sec'}]'
+fi
+
+
+if [ -n "$read_humid_sec" ]; then 
+
+echo "$timestamp$read_humid_sec," >> /daisypi/logs/read_humid_sec.csv
+feed_id="36996"
+curl 'http://api.sen.se/events/?sense_key='$cheie -X POST -H "Content-type: application/json" -d '[{"feed_id": '$feed_id',"value": '$read_humid_sec'}]'
+fi
+
+if [ -n "$read_dew_sec" ]; then 
+
+echo "$timestamp$read_dew_sec," >> /daisypi/logs/read_dew_sec.csv
+feed_id="36997"
+curl 'http://api.sen.se/events/?sense_key='$cheie -X POST -H "Content-type: application/json" -d '[{"feed_id": '$feed_id',"value": '$read_dew_sec'}]'
+fi
+
+
+exit 0

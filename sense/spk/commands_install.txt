@@ -1,0 +1,17 @@
+ mkdir spk
+  495  cd spk
+  496  apt-get install alsa-utils
+  497  cat /etc/modules
+  498  apt-get install mplayer
+  499  mcedit /etc/mplayer/mplayer.conf
+  500  echo "nolirc=yes"
+  501  apt-get install festival
+  504  echo "Hello, I am a fully programmable robot." | festival --tts
+  511  espeak -v ro -s 100 --stdout 'Exista o eroare' | aplay
+  512  apt-get install espeak
+  513  espeak -v ro -s 100 --stdout 'Exista o eroare' | aplay
+  531  espeak -v ro -s 180 --stdout 'Atentie, temperatura a depasit 27 virgula 6                                                                                                                                                               grade' | aplay
+  532  espeak -v ro+f3 -s 140 --stdout 'Exista o eroare' | aplay
+
+apt-get install mpg321
+  574  mpg321 04\ Sirenia\ -\ Ditt\ Endelikt.mp3

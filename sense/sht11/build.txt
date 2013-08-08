@@ -1,0 +1,8 @@
+
+
+0. !!! Pay attention to pin mapping format
+
+
+1.modify path tp bmc2835.h in RPi and testSHT ..
+2.gcc -lm -o testSHT1x bcm2835-1.25/src/bcm2835.c ./RPi_SHT1x.c testSHT1x_compatib.c
+3.gcc -lm -o sss bcm2835-1.25/src/bcm2835.c ./RPi_SHT1x_secund.c testSHT1x_2.c
