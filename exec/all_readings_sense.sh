@@ -4,7 +4,7 @@
 # $(cat /proc/cpuinfo | grep Revision | awk '{print $3}')
 
 
-cheie="5rttnwPJR2TneXp6AOkbhA"
+cheie="xxxxxxxxxxxxxx"
 
 
 #root@raspberrypi:/system/bmp05/aaa# ./palt | grep Pressure | awk '{print $2}'
@@ -277,7 +277,7 @@ fi
 #tehnorama
 
 cheie="feed_key"
-post_url="http://tehnorama.ro/daisypi/post.php"
+post_url="yyyyyyyyyyyyyyyyyyyyyyyyyp"
 
 
 if [ -n "$read_temp" ]; then 
