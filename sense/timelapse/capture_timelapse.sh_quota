@@ -2,7 +2,7 @@
 
 #umount /mnt/tl
 #sleep 5
-#mount -t cifs //192.168.47.10/tl -o username=rape,password=mamasaid /mnt/tl
+#mount -t cifs //192.168.87.10/tl -o username=user,password=pass /mnt/tl
 #sleep 5
 #mkdir -p /ram
 #mount -t tmpfs -o size=100m tmpfs /ram

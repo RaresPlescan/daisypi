@@ -3,7 +3,7 @@
 umount /mnt/tl
 sleep 1
 
-mount -t cifs //192.168.47.10/tl -o username=rape,password=mamasaid /mnt/tl
+mount -t cifs //192.168.87.10/tl -o username=user,password=pass /mnt/tl
 sleep 1
 
 

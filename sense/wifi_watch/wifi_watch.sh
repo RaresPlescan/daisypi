@@ -33,10 +33,12 @@
 ##################################################################
 # Settings
 # Where and what you want to call the Lockfile
-lockfile='/ram/WiFi_Check.pid'
+lockfile='/daisypi/tmp/WiFi_Check.pid'
 # Which Interface do you want to check/fix
 wlan='wlan0'
-pingip='192.168.47.1'
+#Gateway (local, remote) which should respond very fast.
+pingip='192.168.87.1'
+
 ##################################################################
 echo
 echo "Starting WiFi check for $wlan"

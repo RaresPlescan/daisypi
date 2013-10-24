@@ -4,7 +4,7 @@
 # $(cat /proc/cpuinfo | grep Revision | awk '{print $3}')
 
 
-cheie="xxxxxxxxxxxxxx"
+cheie="yyyyyyyyyyyyyyyyy"
 
 
 #root@raspberrypi:/system/bmp05/aaa# ./palt | grep Pressure | awk '{print $2}'
@@ -117,8 +117,20 @@ fi
  echo "Read val A6 is $a6"
  echo "Read val AA7 is $aa7"
  echo "Read val A7 is $a7"
+ 
+ temp_1=$( echo $read_temp | sed 's/\.[^@]*$//' )
+# th1=$(cat  /daisy/tmp/spk_threshold.txt)
 
+# if [ $temp_1 -gt "26" ] && [ $th1 -lt "1"]; then
+ if [ $temp_1 -gt "26" ]; then
+#  espeak -v en+f3 -s 120 -g 8 --stdout 'Warning ! Temperature exceeded twenty six degrees !' | aplay
+# echo "1" > /daisy/tmp/spk_threshold.txt
+ fi
 
+# if [ $temp_1 -lt "27" ]; then
+#  echo "0" > /daisy/tmp/spk_threshold.txt
+#  espeak -v en+f3 -s 120 -g 8 --stdout 'Warning ! ' | aplay
+# fi
 
 
 
@@ -277,7 +289,7 @@ fi
 #tehnorama
 
 cheie="feed_key"
-post_url="yyyyyyyyyyyyyyyyyyyyyyyyyp"
+post_url="http://tehnorama.ro/daisypi/post.php"
 
 
 if [ -n "$read_temp" ]; then 

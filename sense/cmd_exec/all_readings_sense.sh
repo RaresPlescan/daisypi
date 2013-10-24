@@ -4,7 +4,7 @@
 # $(cat /proc/cpuinfo | grep Revision | awk '{print $3}')
 
 
-cheie="5rttnwPJR2TneXp6AOkbhA"
+cheie="zzzzzzzzzzzzzzzzz"
 
 
  tt=$(cat /proc/cpuinfo | grep Revision | awk '{print $3}')
@@ -42,29 +42,8 @@ else
  echo "VERSION 1"
 fi
 
-# a0=$(echo $variabila_analog | grep P0 | awk '{print $2}')
-# a7=$(echo "$aa7*0.001612" | /usr/bin/bc)
-
-#if [ -n "$a7" ]; then 
-
-#echo "$timestamp$a7," >> /ram/logs/read_adc_a7.csv
-#feed_id="37687"
-#curl 'http://api.sen.se/events/?sense_key='$cheie -X POST -H "Content-type: application/json" -d '[{"feed_id": '$feed_id',"value": '$a7'}]'
-#fi
-
-#if [ -z "$message" ]; then 
-
-#echo "$timestamp$message," >> /ram/logs/message_log.csv
-#feed_id="37821"
-#curl 'http://api.sen.se/events/?sense_key='$cheie -X POST -H "Content-type: application/json" -d '[{"feed_id": '$feed_id',"value": '$message'}]'
-#fi
 
 
-#if [ -n "$a4" ]; then 
-
-#feed_id="37840"
-#curl $post_url'/?sense_key='$cheie -X POST -H "Content-type: application/json" -d '[{"feed_id": '$feed_id',"value": '$a4'}]'
-#fi
 
 feed_id="38780"
 curl -s 'http://api.sen.se/feeds/'$feed_id'/last_event/?sense_key='$cheie -X GET -H "Content-type: application/json"
