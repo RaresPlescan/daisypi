@@ -8,3 +8,4 @@ echo "Now checking / installing mc file manager ... "
 apt-get -q -y install mc
 echo "Now checking / installing gammu modem utility ( for SMS usage ) ... "
 apt-get -q -y install gammu
+

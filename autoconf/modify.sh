@@ -7,23 +7,50 @@
 # * * * * * /daisypi/hook_1m.sh
 # 0,30 * * * * /daisypi/hook_30m.sh
 
+# Inserts to /etc/modprobe.d/raspi-blacklist.conf - enables SPI and I2C
+#
+#  #blacklist spi-bcm2708
+#  #blacklist i2c-bcm2708
+#
+
 
 
 #!/bin/sh
 
 
 
+echo " Daisy Pi automatic modifier for crontab, blacklist.conf "
+echo " Checking crontab now ... "
+
+
 pattern="# Modified by Daisy Pi installer 1.0"
 
 flag_1=$(crontab -l | grep -c daisy)
+flag_2=$(crontab -l | grep -c 'Modified by Daisy Pi')
 
-line="* * * * * /path/to/command"
-(crontab -l; echo "$pattern" ) | crontab -
+#flag_1='0'
+#flag_2='0'
 
-add_line="* * * * * /daisypi/hook_1m.sh"
-(crontab -l; echo "$add_line" ) | crontab -
+if [[ ( "$flag_1" < 1 ) || ( "$flag_2" < 1 )  ]] ; then
+
+   # Adding the tag pattern in order to nicely document modificantions and
+   # prevent double changes in the future.
+   (crontab -l; echo "$pattern" ) | crontab -
+
+   # Adding 1 minute hook.
+   add_line="* * * * * /daisypi/hook_1m.sh"
+   (crontab -l; echo "$add_line" ) | crontab -
+
+   # Adding 30 minutes hook
+   add_line="0,30 * * * * /daisypi/hook_30m.sh"
+   (crontab -l; echo "$add_line" ) | crontab -
+
+   echo " Crontab modification done !"
+
+ else
+  echo " Crontab already configured with Diasy Pi hooks, now exiting."
+fi 
 
 
-add_line="0,30 * * * * /daisypi/hook_30m.sh"
-(crontab -l; echo "$add_line" ) | crontab -
 
+ cat /etc/modprobe.d/raspi-blacklist.conf | sed 's/^\#blacklist spi-bcm2708/\ #blacklist spi-bcm2708/g'
