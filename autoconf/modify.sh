@@ -52,5 +52,10 @@ if [[ ( "$flag_1" < 1 ) || ( "$flag_2" < 1 )  ]] ; then
 fi 
 
 
+echo " Blacklist removing for SPI and I2C in /etc/modprobe.d/raspi-blacklist.conf "
 
- cat /etc/modprobe.d/raspi-blacklist.conf | sed 's/^\#blacklist spi-bcm2708/\ #blacklist spi-bcm2708/g'
+ sed -i.bak 's/^blacklist spi-bcm2708/\ #blacklist spi-bcm2708/g' /etc/modprobe.d/raspi-blacklist.conf
+ sed -i.bak 's/^blacklist i2c-bcm2708/\ #blacklist i2c-bcm2708/g' /etc/modprobe.d/raspi-blacklist.conf
+
+echo " Reboot needed !"
+
