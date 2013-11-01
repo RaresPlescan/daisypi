@@ -121,18 +121,6 @@ fi
  temp_1=$( echo $read_temp | sed 's/\.[^@]*$//' )
 # th1=$(cat  /daisy/tmp/spk_threshold.txt)
 
-# if [ $temp_1 -gt "26" ] && [ $th1 -lt "1"]; then
- if [ $temp_1 -gt "26" ]; then
-#  espeak -v en+f3 -s 120 -g 8 --stdout 'Warning ! Temperature exceeded twenty six degrees !' | aplay
-# echo "1" > /daisy/tmp/spk_threshold.txt
- fi
-
-# if [ $temp_1 -lt "27" ]; then
-#  echo "0" > /daisy/tmp/spk_threshold.txt
-#  espeak -v en+f3 -s 120 -g 8 --stdout 'Warning ! ' | aplay
-# fi
-
-
 
 # echo "Read altitude is $altit."
 # echo "Read light is $light."
